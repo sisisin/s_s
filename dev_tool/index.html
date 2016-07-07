@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .img-sizer img {
+        max-width: 800px;
+        max-height: 500px;
+        }
+        
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Chrome開発者ツールを使おう！
+
+---
+
+# 自己紹介
+- name: 伏見大輔(テク開2部)
+- accout: sisisin
+- skills: javascript,C#
+
+---
+
+# Agenda
+
+- intro
+- まずはじめに
+- 便利なショートカット集
+- Elements
+- Console
+- Sources
+- Network
+- Timeline
+- Profiles
+- Resources
+- Security
+- Audits
+- Plugins
+- まとめ
+
+---
+# intro
+事の発端
+
+--
+
+- 開発者ツールの機能、案外知らずに使ってるのでは！？（自分含め
+
+--
+
+.center[.img-sizer[![Default-aligned image](img/a.jpg)]]
+
+
+---
+
+# まずはじめに
+公式のhelpページを見に行こう(https://developers.google.com/web/tools/chrome-devtools/)
+
+--
+
+Getting Startedにいいことが色々書いてあります
+
+---
+
+いいこと
+- Set Up Your Editor
+  - なぜかSublimeをインストールしろって言ってきます
+- Set Up Persistence with DevTools Workspaces
+  - Dev Tools上での編集をファイルに直接適用できるようになります
+    - source mapを利用している場合、tsファイルを編集しながらデバッグできるようになったりします
+- Set Up CSS & JS Preprocessors
+  - SASSやBabelの話とそのへんのソースマップの話が出てきます
+- Set Up Command Line Shortcuts
+  - なぜかシェルのaliasについて教えてくれます
+- Set Up Browser Extensions
+- Set Up Your Build Tools- Set Up Persistence with DevTools Workspaces
+  - gulpとかgruntのことを教えてくれます。（忘れてほしい技術も結構有りました
+
+---
+
+
+
+---
+    </textarea>
+
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
