@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../pub/common.css">
+    <link rel="stylesheet" href="./css/dev.css">
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Chrome開発者ツールを使おう！
+
+---
+
+# 自己紹介
+- name: 伏見大輔(テク開2部)
+- accout: sisisin
+- skills: javascript,C#
+
+---
+
+# Agenda
+
+- intro
+- まずはじめに
+- よく使う機能とかTips
+- Resourcesパネルなどの機能紹介
+- Debug機能
+- Console機能
+- まとめ
+
+---
+# intro
+事の発端
+
+--
+
+- 開発者ツールの機能、案外知らずに使ってるのでは！？（自分含め
+
+--
+
+.center[.img-sizer[![Default-aligned image](img/a.jpg)]]
+
+
+---
+
+# まずはじめに
+公式のhelpページを見に行こう(https://developers.google.com/web/tools/chrome-devtools/?hl=en)
+
+使い方は全てここに詰まっています
+
+極論ここ読め！で終わる
+
+
+--
+
+(余談ですが、このGoogle DevelopersのサイトはWebフロントエンドにまつわる技術について色々書かれてるので読んでみるのも良さそうだなって思いました
+
+--
+
+(自分は読んでません
+
+---
+
+# よく使う機能とかTips
+とりあえずわかりやすくすぐ役に立つ話します。  
+主にElement,Console,SourceパネルのTipsを話します。  
+  
+これらのパネル上の直感的にわかる使い方はあんまり触れないですが、こんなやり方あるよ！という方は随時手を上げていただければと思います！
+
+---
+
+## Global keyboard shortcuts
+### 開く
+⌘+⌥+J : Consoleパネルを開く  
+⌘+⌥+I : 最後に開いていたパネルを開く  
+⌘+⇧+C : DOM要素の選択モードに入る(DevTool左上のマウスカーソルアイコンをクリックした時と同じ動作)
+
+### 移動
+⌘+[ or ] : パネルを左 or 右へ移動
+
+---
+
+### 更新
+⌘+⇧+R : キャッシュを無視してリロード
+
+### 検索
+⌘+⌥+F : 全検索
+
+### ファイル
+⌘+O : ファイルを開く
+
+---
+
+## Mouse shortcuts by Panel
+### Elements
+#### 右クリックメニュー
+:active, :hover, :focus, :visitedを選択 : 要素に対してそれぞれの擬似要素を強制的に追加    
+Breake on... : DOM要素の操作に対してブレークポイントを張れる(ただしDOM操作にフレームワーク使ってるとあんまり嬉しくない
+
+### Sources
+####  Pause on all exceptions
+
+.img-sizer[![Default-aligned image](img/b.png)] ←これをクリック : 例外発生時にbreakしてくれるようになる    
+(案外便利そうだけどAngularとかのど真ん中で止まられると辛い気もする
+
+
+---
+
+## Keyboard shortcuts by panel
+### Elements
+
+H : 選択しているDOMNodeを描画領域から消す  
+⌥+矢印クリック : 該当のDOM以下の全てのDOMNodeをElementPane上で展開する
+
+### Styles sidebar
+
+⌘+プロパティクリック : 定義元のcssへジャンプ .hakadoru[（超捗る]  
+    
+(数値のプロパティ編集中に)   
+↑ : 値を1増やす  
+⇧+↑ : 値を10増やす  
+⇧+PageUp : 値を100増やす  
+⌥+↑ : 値を0.1増やす
+
+---
+
+### Source
+⌘+\ : resume script execution  
+⌘+' : Step over next function call  
+⌘+;  : Step into next function cal  
+⌘+⇧+; : Step out of current function  
+⌘+B : Toggle breakpoint condition    
+行番号右クリック : Edit breakpoint condition(特定の条件の時に止めるやつとか使えます)  
+⌥+W : Close active tab
+
+### Console
+
+⌃+` : Consoleにフォーカスを当てる
+
+
+---
+
+# Resourcesパネルなどの機能紹介
+普段余り使わなさそうな機能なので紹介という形で話します
+
+---
+
+## Local Strage APIs
+- localStorage
+- sessionStorage
+- indexedDb
+- WebSQL
+- Application Cache
+
+## Inspect and Manage Cookies
+- クッキーが扱えます。
+
+## Inspect Page Resources
+- ページ内で使われてる画像などのリソースをまとめて見れます。
+
+--
+
+  - ~~画像を右クリックから保存できなかった時などに捗ります~~
+
+---
+
+## Security
+- HTTPSの証明書などが見れます
+
+---
+
+# Debug
+DebugやREPL的な機能について紹介
+
+---
+
+## Remote Debugging
+- Android端末での挙動をデバッグできるそうです  
+- ネイティブアプリのWebViewもデバッグ出来るとのこと
+  - もし必要になった時これ知ってるかどうかで随分違うんじゃないでしょうか。
+
+---
+
+## Run snippets of code from any page
+
+- コードスニペットを保存しておいていつでも実行できたりします（調べてて初めて知った
+
+--
+
+- 変数のスコープはそのページに依存します（超ポイント高い（そのページのコンテキストで試すコードを書ける
+
+--
+
+- 逆に、スニペットを実行したらそのときに宣言した変数や関数も残る（超（略
+  - デバッグ時によくconsole.log()とか書くことあると思いますが、スニペットにしておくだけで捗るんじゃないでしょうか。
+
+--
+
+- さらに修正したらdiffも見れる
+  - エディタ内で右クリック→Local Modifications...
+
+---
+
+# Console機能
+
+- consoleの出力にタイムスタンプを出す
+
+- console.log()に装飾をつける
+
+- console.table()を使ってオブジェクトをtable形式で表示
+
+- console.time(), timeEnd()で計測
+
+- 他にもElementのセレクタが使えたり、画面内のイベントリスナを取るAPIがあるようですが量が多かったので各自こちらをご参照いただければ。。。
+https://developers.google.com/web/tools/chrome-devtools/debug/command-line/command-line-reference?hl=en
+
+---
+
+# まとめ
+- ざっくりですがこんな機能がありますという紹介をしていきました。  
+
+- まだ紹介しきれていないところがたくさんあるのでぜひGoogleDevelopersのサイトを眺めてみてください！
+
+- 皆様の開発の一助になれば幸いです。
+
+---
+class: middle, center
+# Happy Hacking!
+
+    </textarea>
+
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
