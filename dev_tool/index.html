@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .img-sizer img {
+        max-width: 800px;
+        max-height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Chrome開発者ツールを使おう！
+
+---
+
+# 自己紹介
+- name: 伏見大輔(テク開2部)
+- accout: sisisin
+- skills: javascript,C#
+
+---
+
+# Agenda
+
+- intro
+- まずはじめに
+- 便利なショートカットなどなど(Element,Console,Sourceパネル)
+- その他のパネル(Resources)
+- まとめ
+
+---
+# intro
+事の発端
+
+--
+
+- 開発者ツールの機能、案外知らずに使ってるのでは！？（自分含め
+
+--
+
+.center[.img-sizer[![Default-aligned image](img/a.jpg)]]
+
+
+---
+
+# まずはじめに
+公式のhelpページを見に行こう(https://developers.google.com/web/tools/chrome-devtools/?hl=en)
+
+使い方は全てここに詰まっています
+
+極論ここ読め！で終わる
+
+
+--
+
+(余談ですが、このGoogle DevelopersのサイトはWebフロントエンドにまつわる技術について色々書かれてるので読んでみるのも良さそうだなって思いました
+
+--
+
+(自分は読んでません
+
+---
+
+# 便利なショートカットなどなど
+とりあえずわかりやすくすぐ役に立つ話します。
+
+---
+
+## Global keyboard shortcuts
+### 開く
+⌘+⌥+J : Consoleパネルを開く  
+⌘+⌥+I : 最後に開いていたパネルを開く  
+⌘+⇧+C : DOM要素の選択モードに入る(DevTool左上のマウスカーソルアイコンをクリックした時と同じ動作)  
+
+### 移動
+⌘+[ or ] : パネルを左 or 右へ移動
+
+---
+
+### 更新
+⌘+⇧+R : キャッシュを無視してリロード
+
+### 検索
+⌘+⌥+F : 全検索
+
+### ファイル
+⌘+O : ファイルを開く
+
+---
+
+## Mouse shortcuts by Panel
+### Elements
+#### 右クリックメニュー
+:active, :hover, :focus, :visitedを選択 : 要素に対してそれぞれの擬似要素を強制的に追加  
+Breake on... : DOM要素の操作に対してブレークポイントを張れる(ただしDOM操作にフレームワーク使ってるとあんまり嬉しくない
+
+### Sources
+####  Pause on all exceptions
+
+.img-sizer[![Default-aligned image](img/b.png)] ←クリック : 例外発生時にbreakしてくれるようになる  
+(案外便利そうだけどAngularとかのど真ん中で止まられると辛い気もする
+
+
+---
+
+## Keyboard shortcuts by panel
+### Elements
+
+H : 選択しているDOMNodeを描画領域から消す  
+⌥+矢印クリック : 該当のDOM以下の全てのDOMNodeをElementPane上で展開する
+
+### Styles sidebar
+
+⌘+プロパティクリック : 定義元のcssへジャンプ（超捗る  
+(数値のプロパティ編集中に) ↑, ⇧+↑, ⇧+PageUp, ⌥+↑ : それぞれ値を1,10,100,0.1上昇
+
+---
+
+### Source
+⌘+\ : resume script execution  
+⌘+' : Step over next function call  
+⌘+;  : Step into next function call  
+⌘+⇧+; : Step out of current function  
+⌘+B : Toggle breakpoint condition  
+行番号右クリック : Edit breakpoint condition(特定の条件の時に止めるやつとか使えます)  
+⌥+W : Close active tab
+
+---
+
+### Console
+⌃+` : Consoleにフォーカスを当てる
+
+---
+
+#
+
+    </textarea>
+
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
