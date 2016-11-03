@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Title</title>
+	<meta charset="utf-8">
+	<style>
+		@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+		@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+		@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+		body {
+			font-family: 'Droid Serif';
+		}
+		
+		h1,
+		h2,
+		h3 {
+			font-family: 'Yanone Kaffeesatz';
+			font-weight: normal;
+		}
+		
+		.code-bg {
+			background-color: #CCC;
+			padding: 0.4em;
+		}
+		
+		.code-bg pre {
+			margin: 0;
+		}
+		
+		.fnt-64 {
+			font-size: 64px;
+		}
+		
+		.remark-code,
+		.remark-inline-code {
+			font-family: 'Ubuntu Mono';
+		}
+		
+		.img-sizer img {
+			max-width: 800px;
+			max-height: 500px;
+		}
+	</style>
+</head>
+
+<body>
+	<textarea id="source">
+
+class: center, middle
+
+# フロントエンドに本当に必要だったもの
+
+---
+
+### 自己紹介
+- 株式会社オプト テクノロジー開発二部 伏見大輔
+
+- Twitter: [@_sisisin](https://twitter.com/_sisisin)
+
+- GitHub: [@sisisin](https://github.com/sisisin)
+
+- 普段触っている技術
+
+	- 業務では主に
+		- サーバサイド:Scala
+		- フロントエンド:Angular1系+TypeScript
+
+	- 個人では基本JavaScript,最近はRubyもちょろっと
+
+---
+
+### アジェンダ
+
+- フロントエンドとは
+- 近年のフロントエンド事情
+- フロントエンドが本当に必要だったもの
+- まとめ
+
+---
+
+### フロントエンドとは
+
+ここでの定義は、
+
+- HTMLによるマークアップ
+
+- CSSによるスタイリング
+
+- JavaScriptによる画面の処理
+
+で構築されるGUIとします
+
+---
+class: center, middle
+
+# 近年のフロントエンド事情
+
+---
+class: center, middle
+
+#### めっちゃ大雑把に言うとjQueryの次の時代
+
+---
+
+### これまでと大きく変わった環境
+
+- モダンブラウザの台頭
+
+- モバイル対応の比重の激増
+
+- GUI構築を支援する様々なツール・概念の登場
+
+
+---
+
+### モダンブラウザの台頭
+Google Chrome, FireFox, MS Edgeを始めとする、近年のWeb標準仕様に準拠したブラウザ
+
+- 高速なリリースサイクル
+
+- 最新仕様への追従が早い
+
+- 高速なJSの実行エンジン
+	
+　  
+-> 標準仕様の進化、それに追従するモダンブラウザの動きによって、
+**HTML/CSS/JSでインタラクティブな画面構築がしやすい環境になってきた**
+
+---
+
+### モバイル対応の比重の激増
+
+- iOS/Androidの台頭
+
+	- ユーザへのコンテンツ提供の有力な選択肢としてネイティブアプリの出現
+
+	- これに伴い、フロントエンドもネイティブアプリ同等のGUIを求められるようになった
+
+		- PWA/AMPによるネイティブアプリ相当のUXの実現も可能になってきている
+
+-> フロントエンドでやるべきことの幅が大変広くなった
+
+---
+
+### GUI構築を支援する様々なツール・概念の登場
+
+- Node.js/npm
+
+	- これによってパッケージ管理とファイル単位でJSの切り出し(モジュール化)が可能になった
+
+	- そしてこれをフロントエンドに持ち込むbundler(browserify/webpackなど)の登場
+
+		- Node.js上と同様にフロントエンドで扱うJSもモジュール分割しつつ開発が可能に
+
+- 様々なフロントエンドの画面構築用ライブラリ/フレームワーク
+
+	- 人の手でDOM操作やデータのバインドをせずに済むようになった
+
+- JavaScript自体の進化(ES2015の仕様策定・リリース)
+
+	- より開発しやすい言語に進化した
+
+---
+
+- トランスパイラ/AltJS
+
+	- AltJSとしてはCoffeeScript, TypeScript, Dart, Elmなどが該当
+
+	- 他の言語をJavaScriptへ変換してくれるツール
+
+	- 実質的にJavaScript以外の言語での開発が可能に
+
+---
+class: center, middle
+
+**つまり静的型付けをフロントエンドで使うことが出来るようになった**
+
+---
+
+### 静的型付けとは
+
+変数や関数の引数・返り値などに予めどんな型が与えられるのかをコード上で示しておき、コンパイル時など(つまり実行する前)にコードの整合性を確認できること
+
+---
+### 例えば・・・
+.code-bg[
+```
+jQuery.each(list, function(i, v) {
+  console.log(v);
+});
+```
+]
+  
+のノリで
+
+--
+
+.code-bg[
+```
+list.each(function(i, v) {
+  console.log(v);	
+});
+```
+]
+  
+とか書いて
+  
+--
+
+.center[![Center-aligned image](img/uncaught.png)]
+
+--
+
+.center.fnt-64[😇]
+
+---
+
+### 静的型付けの恩恵
+
+- 実行しなくともコンパイルの段階でこういったミスが発見できる
+
+- また、エディタでの支援も受けられるため、多くの場合コードを書いてる段階で同様の情報がわかる
+
+- 他にも、
+
+	- とあるクラスがどこで使われているか、どこで定義されているかなどが簡単に参照できる
+
+	- ライブラリがどんなメソッドを持っているのかがわかる
+
+　  
+**-> 大規模開発で大きな恩恵が得られる**
+
+---
+
+### フロントエンドの世界においての静的型付け
+
+- 静的型付けされているものが何一つない不安定な世界に安全性をもたらしてくれるもの
+
+	- JSだけでなく、CSSにも型を与えようとする動きもあり、安全な開発をしていきたいというモチベーションはいろいろな人が持っている
+
+	- HTMLについても、ReactのJSX記法やAngular2系のAoTなど、静的チェックが可能になってきている
+
+- 自動テストのコスト削減に繋がる
+
+	- フロントエンドにおいて、HTMLが絡む部分のテスタビリティは基本的に悪い
+
+	- 少しでもチェックしなきゃいけない箇所が減らせるという点で大変ありがたい
+
+
+---
+class: center, middle
+
+# フロントエンドが本当に必要だったもの
+
+---
+class: center, middle
+
+**型？**
+
+---
+class: center, middle
+
+## 否！
+
+---
+class: center, middle
+
+## ユーザーへの価値の提供だ！！
+
+---
+### フロントエンドが本当に必要だったもの
+
+- 近年のフロントエンド事情が変化・進化しているのは、価値の提供のため
+
+- 静的型付けはその支援のための強力な武器の一つである(一つにすぎない、とも言える)
+
+- だが、ここまでのフロントエンドの世界の進化のおかげで、この静的型付けという武器を思う存分使えるようになった
+
+
+---
+
+### まとめ
+
+- フロントエンドは今、とても激しく変化し続けている
+
+- そんな時代の中、これからもユーザに価値を提供し続けていくためにも強力な武器、静的型付けを使っていこう！
+
+
+---
+class: middle, center
+# Happy Hacking!
+    </textarea>
+
+	<script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+	<script>
+      var slideshow = remark.create();
+    </script>
+</body>
+
+</html>
