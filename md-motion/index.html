@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Title</title>
+	<meta charset="utf-8">
+	<style>
+		@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+		@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+		@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+		body {
+			font-family: 'Droid Serif';
+		}
+		
+		h1,
+		h2,
+		h3 {
+			font-family: 'Yanone Kaffeesatz';
+			font-weight: normal;
+		}
+		
+		.code-bg {
+			background-color: #CCC;
+			padding: 0.4em;
+		}
+		
+		.code-bg pre {
+			margin: 0;
+		}
+		
+		.fnt-64 {
+			font-size: 64px;
+		}
+		
+		.remark-code,
+		.remark-inline-code {
+			font-family: 'Ubuntu Mono';
+		}
+		
+		.img-sizer img {
+			max-width: 800px;
+			max-height: 500px;
+		}
+	</style>
+</head>
+
+<body>
+	<textarea id="source">
+
+class: center, middle
+
+# Material motion
+
+---
+
+### 自己紹介
+- しめにゃん
+
+- Twitter: [@_sisisin](https://twitter.com/_sisisin)
+
+- GitHub: [@sisisin](https://github.com/sisisin)
+
+- JSとかフロントの人
+
+---
+
+### はじめに
+
+- ぶっちゃけこれ実践するの相当大変
+
+- この項目は、 `これを頑張って実践しよう`というよりは、`アニメーションによってどういうことを伝えるとわかりやすいアプリケーションになるのかを知ろう`という視点で見たほうがいいかも
+
+
+---
+
+### Material motion
+
+https://material.io/guidelines/motion/material-motion.html  
+  
+Material designの世界で、motionは空間の関係性、機能性、意図を表現する  
+
+---
+
+### なぜmotionは重要か
+
+motionはアプリがどのように編成され、何が出来るのかを示してくれる
+
+- ビュー間のフォーカス
+- ユーザーのジェスチャーが完了したことを示すヒント
+- 要素間の階層的・空間的関係
+- コンテンツの取り出しや、次のコンテンツ読み込みなどの待ち時間でユーザーの気を紛らわせる
+
+---
+
+### どのように動くのか
+
+Material motionは重力や摩擦といった概念にインスピレーションを受けている  
+
+これらの力はユーザの入力が画面上の要素にどう影響を与え、要素同士がどう相互に反応するかに現れている
+
+---
+
+### motionの特徴
+
+#### 応答性がある
+
+- 300~400msまたは150~200msでアニメーションが完了する
+
+- タッチしたときの波紋によってユーザの動作を受け付けたことを表現する
+
+- 新しいモーダルのような要素を作るときにユーザアクションとその要素が作られるまでの動きを表現する
+
+
+---
+
+#### 自然な動き
+
+- 現実の世界に触発された自然な動きをする
+
+- 要素のアニメーションの開始・終了が即時発生しない
+
+- 要素の動きは直線的でなく、円弧を描くように動く
+
+
+---
+
+#### 周囲の認識
+
+- MaterialDesignにおいて各種要素はその周囲を認識しており、他の要素との関係性をアニメーションに反映する
+
+- 要素とその周囲の関係性を示しつつ画面遷移する
+
+- 他の要素を押し出すことが出来る
+
+- 他の要素をひきつけ、互いに接近するときに結合することもある
+
+---
+
+#### 意図を表す
+
+- transitionによってユーザが次に何をすればいいかを表現する
+
+- 動作が利用できないかどうかなどを要素の動かせ方によって表現する
+
+- ユーザが注目すべき要素にアニメーションを割り当てる
+
+---
+
+### 良いtransitionはどういうものか
+
+- 動きが速い
+
+- 動きが明瞭
+
+- 動きにまとまり・一貫性がある
+
+---
+
+個別のmotionについて
+
+- Duration & easing
+- Movement
+- Transforming material
+- Choreography
+- Creative customization
+
+これらはguidelineのページを見ながら進めます
+
+---
+
+### Duration & easing
+
+motionの付いた要素はレスポンシブで自然な動きをする  
+duration patternとeasing curveを利用してmotionを作成している  
+  
+
+---
+
+### Duration & easing
+
+- 即時開始してピタッと止まったりしない
+
+- アニメーションは短時間で
+
+- でも距離に応じて時間の使い分けはしっかりする
+
+- デバイスにあわせて適切な速度で
+
+- 自然なeasing curveを
+
+  - 画面内での動き
+
+  - 画面外から画面内への動き（またはその逆）
+
+---
+
+### Movement
+
+要素の移動は重力があるかのように振る舞う
+
+---
+
+### Movement
+
+- 直線的には動かない要素
+
+  - 重力に従うので、斜め下方向の移動はまず下方向に動く（上方向はその逆）
+
+  - ただし縦方向のみの移動では直線に
+
+- 画面内外への移動
+
+  - その要素が生きているのか、それとも完全に消えるのかなどの意味によってeasingの加減速を丁寧に使い分ける
+
+  - （自前で実装しようとしたらすっごいマメな作業になるので大変そう
+
+---
+
+### Transforming material
+
+要素は分割されたり形状やサイズの変更をすることでいい感じに見せることが出来る
+
+---
+
+### Transforming material
+
+- 矩形の変換は非対称・対称で起こる
+
+  - 要素の動き方によってこれらを使い分ける
+
+- 円形の変換はユーザのアクションに由来した要素の返還として利用される
+
+  - FAB(Floating Action Buttonなど)
+
+- 結合や分割するときは接合点と影をちゃんとする
+
+---
+
+### Choreography
+
+transitionの間で要素の共有をすることでユーザーの関心をインタラクションを通じて誘導する
+
+---
+
+### Choreography
+
+- Viewの遷移は連続性を持っていて、要素を共有しながらアニメーションする
+
+  - View遷移間に共有されるコンテンツの多寡によってどの要素を中心に動かすかを調整する
+
+- 共有されない（なにもないところから発生する）コンテンツもある
+
+  - その際は、どの要素へのアクションから作られたのかを明示するようなアニメーションをつける
+
+- ユーザーのアクションを中心にコンテンツが展開される
+
+---
+
+### Creative customization
+
+- システムアイコンは2つの機能を表せる
+
+  - アイコンが変わることで、ユーザは今のページで何が出来るのかを直感的に知ることが出来る
+
+- 製品アイコンは気合入れろ
+
+---
+
+
+### 質疑とか雑談とか？
+
+---
+
+class: middle, center
+# Happy Hacking!
+    </textarea>
+
+	<script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+	<script>
+      var slideshow = remark.create();
+    </script>
+</body>
+
+</html>
