@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Title</title>
+  <meta charset="utf-8">
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+    @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+    body {
+      font-family: 'Droid Serif';
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Yanone Kaffeesatz';
+      font-weight: normal;
+    }
+
+    .code-bg {
+      background-color: #CCC;
+      padding: 0.4em;
+    }
+
+    .code-bg pre {
+      margin: 0;
+    }
+
+    .fnt-64 {
+      font-size: 64px;
+    }
+
+    .remark-code,
+    .remark-inline-code {
+      font-family: 'Ubuntu Mono';
+    }
+
+    .img-sizer img {
+      max-width: 800px;
+      max-height: 500px;
+    }
+  </style>
+</head>
+
+<body>
+  <textarea id="source">
+
+class: center, middle
+
+# VSCodeを使いこなす
+
+---
+### VSCode基礎知識
+
+- `cmd+,`で設定画面
+
+- `cmd+k cmd+s`でキーボードショートカット設定画面
+
+  - 何はともあれ、`〜なこと出来ないかな？`と思ったらこの辺を開いてそれっぽい単語で検索検索ゥ↑
+
+- メニューの`Code -> Preference -> keymap extension`でお好みのエディタ風味のkeymap設定が入れられる
+
+- `shift+cmd+p` -> `configure language`でlocaleの設定ができる（`cmd+,`じゃないので注意）
+
+  - 日本語にして設定画面の項目をざっと眺めると、どんな機能あるかパッと把握できるのでおすすめ
+
+---
+
+### とりあえずこれだけは抑えておきたい
+
+#### コマンドパレット
+
+- `shift+cmd+p`で出せるやつ
+
+- とりあえずこれ開いてそれっぽい英単語入れると大体なんとかなる
+
+---
+
+#### ファイル検索
+
+- `cmd+p`で出せるやつ
+
+- サジェストちゃんとしてるので、うろ覚えなファイルも安心
+
+- ご利用の際はあわせて設定の`files.exclude`も使うといい感じ
+
+  - ファイル検索で余計なファイルが引っかかるのを防げる
+
+  - bundle.jsとかが候補に上がってくるの害悪なので積極的に除外していこう
+
+---
+
+### 開発するならこのぐらい覚えておくと便利
+
+#### フォーカス変える系
+
+- `cmd+0`, `cmd+1`, `cmd+2` それぞれサイドバー、1番左のタブグループ、左から2番目のタブグループにフォーカス
+
+- `shift+cmd+e` ファイルツリーを開いてフォーカスをあてる
+
+- `shift+cmd+f` 検索窓を開いてフォーカスをあてる
+
+- `ctrl+shift+g` source controlを開いて、コミットメッセージの入力欄にフォーカスをあてる
+
+---
+
+#### ファイルツリー操作
+
+- `cmd+enter` ファイルを開く
+
+- (ファイルツリーにフォーカスをあてた状態で)`shift+cmd+p 'Files: New File'` そのフォルダにファイルの新規作成
+
+---
+
+#### エディタ便利系
+
+- `shift+cmd+p 'Files: Compare Active File With'` 選択した2つのファイルの差分表示
+
+- `cmd+k enter` タブグループにファイルを固定
+
+  - 新しくファイルを開くと古いファイルが勝手にタブから消えちゃうアレを抑止
+
+- フォーマットとか行ジャンプとか基本的なのは`shift+cmd+p`からいくらでも探せるのでそんな感じで
+
+- `ctrl+[バッククオート]` ターミナルを開く
+
+---
+
+#### TypeScript便利系
+
+- 定番は定義ジャンプ、参照の探索、戻る、進む、メソッドなどの候補一覧、型表示、エラー表示らへん
+
+- その他便利系
+
+  - ts-serverの再起動（npm installし直したときに型定義読み直したいときなど）
+
+  - エディタで利用するtypescriptのバージョンを変更
+
+  - `shift+cmd+m` コンパイルエラー一覧表示
+
+- それぞれショートカットはまあ調べてもらえれば。
+
+- 個人的おすすめは`cmd+k cmd+i`でカーソルの合っている変数について型などの説明ポップアップ出すやつ
+
+- import自動挿入のショートカット見つからなくてつらい；；
+
+- あとIntelliJでいう`optimize import`がないのがつらい；；
+
+---
+
+#### その他
+
+- shell上でcodeコマンドが叩けるので便利
+
+  - pathを通す必要あり（`shift+cmd+p`から検索ゥ↑）
+
+- `cmd+F1`でウィンドウ切り替え、`shift+cmd+w`でウィンドウ削除
+
+---
+
+# 質疑
+
+---
+class: middle, center
+# Happy Hacking!
+    </textarea>
+
+  <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+
+  </script>
+  <script>
+    var slideshow = remark.create();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .img-sizer img {
+        max-width: 800px;
+        max-height: 500px;
+        }
+        
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# 近年のjs開発環境について
+
+---
+
+# Agenda
+
+- イントロダクション
+- 周辺ツールの簡単な概要
+- 各種ツールの簡単な紹介
+  - package manager
+  - module bundler
+  - transpiler
+  - lint tool
+  - unit test
+  - task runner
+- まとめ
+
+---
+# イントロダクション
+近年のjs開発では下記のようなnodeの資産を利用することが当たり前になっている
+
+--
+
+- package manager (e.g. npm/bower)
+
+--
+
+- transpiler (e.g. TypeScript/Babel/CoffeScript/Flow)
+
+--
+
+- module bundler (e.g. browserify/webpack/rollup)
+
+--
+
+- lint tool (e.g. ESLint/JSHint/JSLint)
+
+--
+
+- unit test (e.g. mocha, jasmine, karma, power-assert)
+
+--
+
+- task runner (e.g gulp/grunt/fly)
+
+---
+class: center, middle
+# 周辺ツール多すぎ問題
+
+---
+
+class: middle
+#### ということで今回は周辺ツールの関係性とか役割について話したいと思います
+
+---
+
+# 周辺ツールの簡単な概要
+よく使われるものとして下記のようなツールがあります。
+
+- package manager (e.g. npm/bower)
+
+- transpiler (e.g. TypeScript/Babel/CoffeScript/Flow)
+
+- module bundler (e.g. browserify/webpack/rollup)
+
+- lint tool (e.g. ESLint/JSHint/JSLint)
+
+- unit test (e.g. mocha, jasmine, karma, power-assert)
+
+- task runner (e.g gulp/grunt/fly)
+
+---
+
+# 周辺ツールの簡単な概要
+AltJSを利用したjs開発を行うときの言語とツールの関係性（一例）
+.center[.img-sizer[![Default-aligned image](img/fig1.jpg)]]
+
+---
+# 周辺ツールの簡単な概要
+### Lang枠
+実際に人が書くことになる言語として設けた枠  
+AltJSとしてTypeScript/ES2015/Flowなどを想定しています
+
+*Flowは一般的にAltJSと言われていませんが、この括りだとここが妥当だと判断しました  
+  
+---
+# 周辺ツールの簡単な概要
+  
+### Tool枠
+AltJSを変換したり、テストしたりするためのツール類をまとめてTool枠としています  
+具体的にはbabel, webpack, mochaなどが該当します  
+なお、npmも含めています
+
+---
+# 周辺ツールの簡単な概要
+
+### Result枠
+実際に実行されるコードのことになります  
+所謂bundle.js
+
+---
+# 周辺ツールの簡単な概要
+### 備考
+task runnerが図には含まれていませんが、Tool類をまるっと囲う位置になるので省略しています
+---
+# 周辺ツールの簡単な概要
+このように、近年のjs開発は色々なツール・概念を組み合わせて行われております。 
+
+これらの組み合わせを意識したうえで各種ツールを利用していくよう心がけると良いと思います  
+
+
+---
+class: center, middle
+ここからは各種ツールの簡単な紹介をしていきます
+---
+# package manager
+- npm
+- bower
+
+---
+
+# package manager
+- npm
+- ~~bower~~
+
+--
+
+bowerのことは忘れてください  
+
+後述するmodule bundlerで説明しますが、npmの資産をフロントエンドで利用しづらいという環境ではなくなってきました    
+
+また、npm自信もフロントのパッケージの対応を進めていくという方針のようです（参考：[npm and front-end packaging](http://blog.npmjs.org/post/101775448305/npm-and-front-end-packaging)）
+
+---
+# package manager
+- npm
+
+ということで改めてpackage manager.  
+
+npmを使ってnodeの資産を簡単に拾ってきます    
+
+node上で`require()`を利用することでこれらの資産を利用できます    
+
+後述するmodule bundlerによってこれらをフロントエンドの世界に持ち込めます  
+
+また、CLI上で利用できるコマンドもnpmによって取得ができます（これから説明する各種ツールは全てnpmパッケージのものになっています）
+
+    
+---
+# module bundler
+- browserify
+- webpack
+- rollup
+
+--
+
+`require`や`import`にて記述されたファイル同士の依存関係を解決し、1つのファイルにまとめてくれたりするツールです    
+
+使用例  
+
+```bash
+$ browserify index.js -o bundle.js
+$ webpack ./entry.js bundle.js
+$ rollup src/main.js -o bundle.js
+```
+
+---
+# module bundler
+
+これらのbundlerにファイルを流しこむことで、設定やプラグインに従ってjsファイルを吐き出してくれます  
+
+近年のフロントエンドにおいては、最終的な成果物はこれらを通して出力されるものと思って良いです  
+
+ES2015 modulesがどの環境でも使えればbundleが必要なくなるという希望もありましたが、少なくとも向こう数年は難しいんじゃないかという風潮です  
+（ブラウザにせよnodeにせよ、実装の方法で未だに議論が紛糾している状態）
+
+流行りでいえば今はWebpack、シンプルにbundleするだけを望むならbrowserifyという所感（rollupはよく知りません
+
+---
+# transpiler
+
+- TypeScript
+- Babel
+- CoffeScript
+- Flow
+
+---
+# transpiler
+
+- TypeScript
+- Babel
+- ~~CoffeScript~~
+- Flow
+
+coffeeのことは忘れてください  
+
+ES2015の構文で利用できないもの（e.g. Generator)が出てきており、今後のjsで新しく出てくる仕様がどんどん使えなくなることが予想されています  
+
+---
+# transpiler
+
+- TypeScript
+- Babel
+- Flow
+
+TSやCoffeeはAltJSを通常のjsへ、BabelはES2015やそれ以降の機能を通常のjsへそれぞれ変換するツールです  
+
+Babelではファイルを解析してAST（Abstract Syntax Tree = 抽象構文木）にして変換しているみたいです。  
+
+参考：[JavaScript ASTを始める最初の一歩](http://efcl.info/2016/03/06/ast-first-step/)
+
+tsをES2015に変換したものをさらにBabelするということも可能ですね  
+
+Babelはプラグインが多く提供されており、出来ることの幅が意外と広いです
+
+---
+# transpiler
+
+- TypeScript
+- Babel
+- Flow
+
+なお、Flowはここに含めていますがtransplierとしての機能は提供していません  
+
+Babel pluginが提供されているので、Babelを実行するときに相乗りする形でtranspileします
+---
+# lint tool
+- ESLint
+- JSHint
+- JSLint
+
+---
+# lint tool
+- ESLint
+- JSHint
+- ~~JSLint~~
+
+JSLintのことは（略
+---
+# lint tool
+- ESLint
+- JSHint
+
+コードの書き方にケチを付けるツールです  
+
+こいつはAltJSなどをASTにしたものに対して実行されるだけなので、他のツールとの絡みを考えなくて良くて比較的楽です  
+
+自分できっちりルール決めるならESLint,さらっと使うならJSHintという使い分けで良いんじゃないでしょうか（ES2015にLintしたいならESLintじゃないとだめですが・・・
+
+---
+# unit test
+- mocha, jasmine
+- karma
+- power-assert
+
+ユニットテスト関連のツールです  
+
+掘り下げるとキリがないので代表的なものだけ挙げました  
+
+上からテストランナー、テストの実行環境、アサーションライブラリです  
+
+transpilerとこのテスト関連の組み合わせをする時が一番大変なことが多いです  
+
+ランナーやライブラリごとにどういう動きをしているのかが異なる上に、組み合わせ方もまちまちなため、ちゃんと理解して使わないとドハマリします
+
+power-assertなんかは裏で一枚のtranspileを挟んでるようなものなのでハマりどころが多いです
+---
+# task runner
+- gulp
+- grunt
+- fly
+
+各種ツールをタスクとして一元管理するためのツール  
+
+最近はwebpackかnpm scriptsでいいじゃんという風潮が生まれてきていて段々と陽の目を見なくなってきたように見受けられます  
+
+npm scriptsが膨れてきたら使う、ぐらいの用途でいいかもしれません
+
+個人的には、これを使う前に生のコマンドを使ってみてどのように動くのかを確認したうえで使ったほうが良いと思います
+
+
+---
+# まとめ
+最近のjs開発環境における周辺ツールが如何に複雑かという話でした  
+
+この資料で新しくjs環境作るときに少しでも参考になれば幸いです
+
+---
+class: middle, center
+# Happy Hacking!
+    </textarea>
+
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

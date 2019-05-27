@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../pub/common.css">
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# メンテナブルCSS
+
+---
+
+# 自己紹介
+
+
+- しめにゃん.icon-image[![Default-aligned image](img/sisisin.jpg)]
+
+- JSのオタク
+
+- JSばかりでなくフロント全般まだまだ強化していきたい
+
+---
+
+# Agenda
+
+- CSSがつらい話
+
+- つらいCSSという言語でどのようにメンテナブルに闘うか
+
+  - ぶっちゃけの話
+
+  - ゴール
+
+  - 基本方針
+
+  - 手法の紹介
+
+  - 総論
+
+---
+
+# CSSがつらい話
+
+- 3なし
+
+--
+
+  - 型なし
+
+--
+
+  - 変数なし
+
+--
+
+  - スコープなし
+
+---
+class: center, middle
+
+#### -> 影響範囲不明・修正すべき範囲不明・リファクタ、機能修正難易度大
+
+
+---
+
+# つらいCSSという言語でどのようにメンテナブルに闘うか
+
+---
+
+## ぶっちゃけの話
+
+- 自分の観測範囲では、これだ！という答えは出てなさげ
+
+- とはいえ、上手くやるための道具がいくつか出てきているので、それらを組み合わせたりして頑張る:zoi:する
+
+---
+
+## ゴール
+
+偉い人は言いました。CSSかくあるべし。
+
+- 予測しやすい
+
+- 保守しやすい
+
+- 再利用しやすい
+
+- 拡張しやすい
+
+このゴールを目指して、どのように戦っていくべきかを紹介していきます
+
+---
+
+## 基本方針
+
+- CSSはアンチパターンな書き方もどんとこいでなんでも受け入れてくれる心の広い言語
+
+- なので基本的に書き手が頑張るしかない
+
+- 最低限、アンチパターンを避けるための基本方針を紹介します
+
+---
+
+## 基本方針
+
+- セレクタはクラスセレクタを使う
+
+- スタイルの取り消しが起こらないようにする
+
+- サイズ指定は相対値を利用
+
+- Component指向
+
+---
+
+### セレクタは基本的にクラスセレクタを使う
+
+詳細度やDOMへの依存をなくし、スタイルの割当を無理なく行えるようにするために、クラスセレクタ以外は利用しない
+
+```css
+.btn { color: blue; } /* ok */
+#btn { color: blue; } /* ng */
+button { color: blue; } /* ng */
+
+```
+
+[sample](./sample.html)
+
+---
+
+### スタイルの取り消しが起こらないようにする
+
+- スタイル指定は足し算で
+
+  - `border: none;`みたいなのを書かない
+
+- 消さなきゃいけないようになった時点で設計が破綻してると考えて良い
+
+
+---
+
+### サイズ指定は相対値を利用
+
+ブロック要素を構成するレイアウトなど、全体の大きさが子要素の大きさに依存する場合、相対値を指定しておくことで変更に強いスタイル指定となる
+
+[sample](./sample.html)
+
+
+---
+
+### Component指向
+
+猫も杓子もComponentの時代なのでCSSもComponent指向で書きましょう  
+  
+- Component指向にすることで影響範囲が明確に出来る
+
+- Reactなどで画面を構築している場合、粒度を揃えることで見通しやすいコードに繋がる
+
+---
+
+### Component指向
+コードの例
+CSS:
+```css
+.media {
+  display: table;
+  border: 1px solid #000;
+}
+
+.media__image {
+  display: table-cell;
+  padding-right: 10px;
+}
+
+.media__image > img {
+  display: block;
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.media__body {
+  display: table-cell;
+  vertical-align: top;
+}
+.media__body--middle {
+  vertical-align: middle;
+}
+
+```
+
+---
+
+### Component指向
+コードの例
+HTML:
+
+```html
+<div class="media">
+  <div class="media__image"><img src="img/sisisin.jpg" alt="simenyan"></div>
+  <div class="media__body media__body--middle">
+    <p>ほんぶんほんぶんほんぶんほんぶんほんぶんほんぶんほんぶんほんぶん</p>
+  </div>
+</div>
+```
+
+画面：[sample](sample.html)
+---
+
+## 基本方針
+
+ここまでで基本方針になるものを紹介しました。  
+これを元にしつつ、これから紹介する手法を使っていい感じなCSSを作っていくことになります。
+  
+
+
+---
+
+## 手法の紹介
+
+- AltCSSを使う
+
+- 命名規則と設計で頑張る
+
+- ScopedCSSを何らかの手段で実現する
+
+- スタイルガイドを作る
+
+- テストする
+
+
+---
+
+### AltCSSを使う
+
+CSSの言語機能が貧弱であることに起因している問題の一部を解決出来る
+
+- 変数やmixinの機能でクラスの拡張性を担保
+
+- ファイル分割なども容易で見通しの良いコードが書ける
+
+- LESS,Sass,PostCSSなどが挙げられる
+  - PostCSSはAltCSSというわけじゃないっぽいけど便宜上含めちゃってます
+
+---
+
+### 命名規則と設計で頑張る
+
+AltCSSを使ったところで、出来上がったCSSが使いやすく書かれてないと困るので、規約を作って頑張る  
+影響範囲を狭めたり、予測・再利用性や開発しやすさに貢献
+
+- SMACSS,FLOCSS,BEM,Atomic Design,etc...
+
+- 色々な設計手法があるものの、全体としてComponent指向にスタイルを定義していく方針になっている
+
+  - 最小単位としてボタンやセレクトボックスなどをElement,その集合をBlockといった具合
+
+  - ルールが決まっていることで、スタイルの指定を誰の役割とするか、などの方針も掴みやすくなるので開発しやすさに繋がる
+
+- Componentに閉じたCSSを構築していくことで、クラスを追加したときに他のクラスの影響を受けて辛いみたいな事態を回避する
+
+---
+
+### ScopedCSSを何らかの手段で実現する
+
+JSでComponentを構築している画面の場合、そこにCSSも含めてしまってビルドプロセス噛ませてScopedCSSを実現、といった手法もある
+
+- CSS Modules
+
+  - JSのファイルのようにCSSをimportし、そのスタイル指定を利用できる。
+
+  - 下記はReactの例
+
+```js
+import button from './button.css';
+
+const Button = () => {
+  return <button className={button.success}></button>;
+};
+```
+
+上記コードはクラス名が自動生成されたものに変更され、擬似的にスコープを実現する
+
+---
+
+### ScopedCSSを何らかの手段で実現する
+
+- Angular2系のComponentのstyle,styleUrl指定
+  - 対象のCSSファイル・スタイル指定を`style`タグに展開。セレクタは自動生成されて擬似的にスコープを実現
+
+```js
+@Component({
+  selector: 'app-root',
+  template: '<div>Hello Component</div>',
+  styles: ['div { font-weight: bold; }']
+})
+export class AppComponent { }
+
+```
+
+このstylesでは`div`タグへのスタイル指定を行っているが、影響範囲はこの`AppComponent`に閉じている
+
+---
+
+### ScopedCSSを何らかの手段で実現する
+
+- その他CSS in JSなツールとかあるっぽいけど追えてない
+
+- JS噛まさないで実現する方法も知らないです＞＜
+
+---
+
+### スタイルガイドを作る
+
+スタイルガイドがあることによって統一感出せたり、そもそもスタイルガイドが作りにくいCSSを減らすことに繋がる -> 再利用性UP
+
+- スタイルガイド、要はこれ(http://getbootstrap.com/css/ )のこと
+
+- CSSの適用方法のガイドを作る
+
+- ガイドが作りやすい設計になっているかどうか
+
+- 設計方針に迷ったときにガイドを参照することでブレにくくなる
+
+個人的にはコスト高すぎなのでは感が若干ある  
+とは言え、ElementレベルのComponentについて、JSの機能面も含めたガイドを作成しておくと便利そうだとは思う（例えばsubmitボタンとかみたいな）
+
+---
+
+### テストする
+
+イマドキCSSもテストしなきゃね！
+
+- 参考資料
+
+  - https://speakerdeck.com/ringogirl/biziyuarucsstesuteingu
+
+  - https://blog.bugsnag.com/implementing-a-visual-css-testing-framework/
+
+- 要はCSSのリグレッションテスト
+
+- スクショ撮って差分とったりしてスタイルの崩れを検知が一般的
+
+- 1つ目の資料のスライドでは、スタイルガイドをテストするという方針をとっている
+
+この領域は発展途上感あるので、もう少し熟れるまで様子見かなあ・・・とは思う
+
+
+---
+
+## 総論
+
+- 現時点ではComponent指向に従って設計しておく
+
+- JSでComponent指向なライブラリ使っているなら粒度を揃えておくとGood
+
+- 今後どうなっていくかはアンテナ張って適宜追従していく
+
+---
+
+class: middle, center
+# Happy Hacking!
+
+    </textarea>
+
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<html>
+
+<head>
+  <title>sample</title>
+  <style>
+.header {
+  font-size: 36px;
+}
+.specificity {
+  font-size: 36px;
+}
+.relative {
+  font-size: 36px;
+}
+#id_text {
+  color: blue;
+}
+
+.class_text {
+  color: green;
+}
+
+.important_text {
+  color: red !important;
+  font-weight: bold !important;
+}
+
+.btn-rel {
+  display: inline-block;
+  border: 1px solid #000;
+  padding: 0.3em 1em;
+  background-color: #EEE;
+  cursor: pointer;
+}
+.btn-abs {
+  display: inline-block;
+  border: 1px solid #000;
+  padding: 10.8px 36px;
+  background-color: #EEE;
+  cursor: pointer;
+}
+.small {
+  font-size: 12px;
+}
+
+.media {
+  display: table;
+  border: 1px solid #000;
+}
+
+.media__image {
+  display: table-cell;
+  padding-right: 10px;
+}
+
+.media__image > img {
+  display: block;
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.media__body {
+  display: table-cell;
+  vertical-align: top;
+}
+.media__body--middle {
+  vertical-align: middle;
+}
+  </style>
+</head>
+
+<body>
+<div class="specificity section">
+  <h1 class="header">詳細度のアレ</h1>
+  <div class="class_text" id="id_text">blue</div>
+  <div class="class_text" id="id_text" style="color: gray;">gray</div>
+  <div class="class_text important_text" id="id_text" style="color: gray;">red</div>
+</div>
+<hr>
+<div class="relative section">
+  <h1 class="header">相対値のアレ</h1>
+  <div class="btn-rel" href="#">相対</div>
+  <div class="btn-rel small" href="#">相対</div>
+  <br>
+  <div class="btn-abs" href="#">絶対</div>
+  <div class="btn-abs small" href="#">絶対</div>
+</div>
+<hr>
+<div class="section">
+  <h1 class="header">Component指向のアレ</h1>
+  <div class="media">
+    <div class="media__image"><img src="img/sisisin.jpg" alt="simenyan"></div>
+    <div class="media__body media__body--middle">
+      <p>ほんぶんほんぶんほんぶんほんぶんほんぶんほんぶんほんぶんほんぶん</p>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
